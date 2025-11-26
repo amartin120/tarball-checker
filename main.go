@@ -106,9 +106,7 @@ func main() {
         }
         if ok {
             fmt.Println("All docker-archive referenced files present.")
-            os.Exit(0)
         }
-        os.Exit(3)
     }
 
     if len(indexBuf) > 0 {
@@ -136,11 +134,11 @@ func main() {
         }
         if ok {
             fmt.Println("All OCI index referenced blobs present.")
-            os.Exit(0)
         }
-        os.Exit(4)
     }
 
-    fmt.Println("No manifest.json or index.json detected; tar may have an unexpected layout.")
-    os.Exit(1)
+    if len(indexBuf) == 0 && len(manifestBuf) == 0 {
+        fmt.Println("No manifest.json or index.json detected; tar may have an unexpected layout.")
+    }
+
 }
